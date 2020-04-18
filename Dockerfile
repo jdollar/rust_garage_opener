@@ -8,6 +8,7 @@ WORKDIR ${HOME}/app
 RUN apt-get update && \
   apt-get install -y \
     curl \
+    build-essential \
     gcc-arm-linux-gnueabihf
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
