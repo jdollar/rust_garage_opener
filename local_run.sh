@@ -3,6 +3,7 @@
 DOCKER_TAG=ionizedwarhead/garage_door_opener
 WORKAPP_DIR=/root/app
 current_dir=$(pwd)
+server_dir=${current_dir}/server
 
 cmd=$1
 
@@ -10,13 +11,18 @@ case $cmd in
   build_docker)
     docker build -t ${DOCKER_TAG} .
     ;;
-  compile_rust)
-    ./local_run.sh build_docker
-
+  build_rust)
     docker run \
-      --mount type=bind,source=${current_dir}/target,target=${WORKAPP_DIR}/target \
-      --mount type=bind,source=${current_dir}/Cargo.lock,target=${WORKAPP_DIR}/Cargo.lock \
-      ${DOCKER_TAG}
+      --mount type=bind,source=${current_dir}/proto,target=${WORKAPP_DIR}/proto \
+      --mount type=bind,source=${server_dir},target=${WORKAPP_DIR}/server \
+      ${DOCKER_TAG} build 
+    ;;
+  clean_rust)
+    docker run \
+      --mount type=bind,source=${current_dir}/proto,target=${WORKAPP_DIR}/proto \
+      --mount type=bind,source=${server_dir},target=${WORKAPP_DIR}/server \
+      ${DOCKER_TAG} \
+      clean
     ;;
   *)
     echo "Invalid command passed. Allowed commands: docker_build|compile_rust"

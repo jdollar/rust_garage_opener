@@ -1,3 +1,16 @@
 #!/usr/bin/env sh
 
-cargo build --target=armv7-unknown-linux-gnueabihf
+cmd=$1
+
+cd server
+case ${cmd} in
+  build)
+    cargo $@ --target=armv7-unknown-linux-gnueabihf
+    ;;
+  clean)
+    cargo $@ --target=armv7-unknown-linux-gnueabihf
+    ;;
+  *) 
+    cargo $@
+    ;;
+esac

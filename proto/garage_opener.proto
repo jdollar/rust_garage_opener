@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.github.jdollar.garage_opener";
+option java_outer_classname = "GarageOpenerProto";
+
+package garageopener;
+
+message Empty {}
+
+message DoorState {
+  bool state = 1;
+}
+
+service GarageOpener {
+  rpc GetGarageDoorState(Empty) returns (DoorState) {}
+}

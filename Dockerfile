@@ -18,6 +18,4 @@ RUN rustup target add armv7-unknown-linux-gnueabihf
 ADD ./docker/cargo/config ${HOME}/.cargo/config
 ADD ./docker/build_script.sh build_script.sh
 
-ADD . .
-
-ENTRYPOINT [ "/bin/sh", "-c", "./build_script.sh"]
+ENTRYPOINT ["./build_script.sh"]
