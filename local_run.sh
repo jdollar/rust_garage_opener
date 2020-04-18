@@ -5,6 +5,9 @@ WORKAPP_DIR=/root/app
 current_dir=$(pwd)
 server_dir=${current_dir}/server
 
+RPI_IP=192.168.1.20
+RPI_USER=pi
+
 cmd=$1
 
 case $cmd in
@@ -24,7 +27,10 @@ case $cmd in
       ${DOCKER_TAG} \
       clean
     ;;
+  ship_it)
+    rsync -avzhe ssh --progress ${server_dir}/target/armv7-unknown-linux-gnueabihf/debug/garageopener-{server,client} ${RPI_USER}@${RPI_IP}:/home/${RPI_USER}
+    ;;
   *)
-    echo "Invalid command passed. Allowed commands: docker_build|compile_rust"
+    echo "Invalid command passed. Allowed commands: docker_build|build_rust|clean_rust|ship_it"
     ;;
 esac
