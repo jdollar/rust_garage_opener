@@ -18,7 +18,8 @@ case $cmd in
     docker run \
       --mount type=bind,source=${current_dir}/proto,target=${WORKAPP_DIR}/proto \
       --mount type=bind,source=${server_dir},target=${WORKAPP_DIR}/server \
-      ${DOCKER_TAG} build 
+      ${DOCKER_TAG} \
+      build 
     ;;
   clean_rust)
     docker run \
