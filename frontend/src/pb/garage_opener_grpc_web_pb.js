@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * @fileoverview gRPC-Web generated client stub for garageopener
  * @enhanceable
@@ -75,7 +74,7 @@ proto.garageopener.GarageOpenerPromiseClient =
  */
 const methodDescriptor_GarageOpener_GetGarageDoorState = new grpc.web.MethodDescriptor(
   '/garageopener.GarageOpener/GetGarageDoorState',
-  grpc.web.MethodType.UNARY,
+  grpc.web.MethodType.SERVER_STREAMING,
   proto.garageopener.Empty,
   proto.garageopener.DoorState,
   /**
@@ -109,37 +108,32 @@ const methodInfo_GarageOpener_GetGarageDoorState = new grpc.web.AbstractClientBa
 
 
 /**
- * @param {!proto.garageopener.Empty} request The
- *     request proto
+ * @param {!proto.garageopener.Empty} request The request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.garageopener.DoorState)}
- *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.garageopener.DoorState>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.garageopener.DoorState>}
  *     The XHR Node Readable Stream
  */
 proto.garageopener.GarageOpenerClient.prototype.getGarageDoorState =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
       '/garageopener.GarageOpener/GetGarageDoorState',
       request,
       metadata || {},
-      methodDescriptor_GarageOpener_GetGarageDoorState,
-      callback);
+      methodDescriptor_GarageOpener_GetGarageDoorState);
 };
 
 
 /**
- * @param {!proto.garageopener.Empty} request The
- *     request proto
+ * @param {!proto.garageopener.Empty} request The request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.garageopener.DoorState>}
- *     A native promise that resolves to the response
+ * @return {!grpc.web.ClientReadableStream<!proto.garageopener.DoorState>}
+ *     The XHR Node Readable Stream
  */
 proto.garageopener.GarageOpenerPromiseClient.prototype.getGarageDoorState =
     function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
+  return this.client_.serverStreaming(this.hostname_ +
       '/garageopener.GarageOpener/GetGarageDoorState',
       request,
       metadata || {},

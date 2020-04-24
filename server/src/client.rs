@@ -12,11 +12,20 @@ pub mod garageopener {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let mut client = GarageOpenerClient::connect("http://[::1]:10000").await?;
 
-  let response = client
-    .get_garage_door_state(Request::new(Empty {}))
-    .await?;
+  // let response = client
+  //   .get_garage_door_state(Request::new(Empty {}))
+  //   .await?;
 
-  println!("RESPONSE = {:?}", response);
+  // println!("RESPONSE = {:?}", response);
+
+  let mut stream = client
+      .get_garage_door_state(Request::new(Empty {}))
+      .await?
+      .into_inner();
+
+  while let Some(door_state) = stream.message().await? {
+      println!("State = {:?}", door_state);
+  }
 
   let response2 = client
     .change_door_state(Request::new(ChangeDoorStateRequest {

@@ -22,10 +22,15 @@ message ChangeDoorStateResponse {
 }
 
 message DoorState {
-  bool state = 1;
+  enum State {
+    OPENED = 0;
+    CLOSED = 1;
+    UNKNOWN = 2;
+  }
+  State state = 1;
 }
 
 service GarageOpener {
-  rpc GetGarageDoorState(Empty) returns (DoorState) {}
+  rpc GetGarageDoorState(Empty) returns (stream DoorState) {}
   rpc ChangeDoorState(ChangeDoorStateRequest) returns (ChangeDoorStateResponse) {}
 }

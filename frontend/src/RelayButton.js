@@ -1,26 +1,38 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
 import { ChangeDoorStateRequest } from './pb/garage_opener_pb';
-import { GarageOpenerClient } from './pb/garage_opener_grpc_web_pb';
+import { GarageOpenerContext } from './GarageOpenerContext';
 
-function callDoorChangeEndpoint() {
-  const garageOpenerService = new GarageOpenerClient('http://192.168.1.20:8080');
+function callDoorChangeEndpoint(garageOpenerContext) {
+  return async function() {
+    const { garageOpenerService } = garageOpenerContext;
 
-  const changeDoorStateRequest = new ChangeDoorStateRequest();
-  changeDoorStateRequest.setPassword("1234");
-  changeDoorStateRequest.setAction(0);
-  garageOpenerService.changeDoorState(changeDoorStateRequest, null, (err, res) => {
-    if (err) {
-      throw new Error(err);
-    }
+    const changeDoorStateRequest = new ChangeDoorStateRequest();
+    changeDoorStateRequest.setPassword("1234");
+    changeDoorStateRequest.setAction(0);
 
-    console.log('Response', res);
-  })
+    return new Promise((resolve, reject) => {
+      garageOpenerService.changeDoorState(changeDoorStateRequest, null, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log('Response', res);
+          resolve(res)
+        }
+      })
+    })
+      .catch(err => console.error('Error: ', err));
+  }
 }
 
 export function RelayButton() {
   return (
-    <button onClick={callDoorChangeEndpoint}>
-      relayButton
-    </button>
+    <GarageOpenerContext.Consumer>
+      { garageOpenerContext => (
+        <Button onClick={callDoorChangeEndpoint(garageOpenerContext)} variant="contained" color="primary">
+          Open/Close
+        </Button>
+      )}
+    </GarageOpenerContext.Consumer>
   )
 }

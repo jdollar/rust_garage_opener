@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * @fileoverview
  * @enhanceable
@@ -16,6 +15,7 @@ goog.exportSymbol('proto.garageopener.ChangeDoorStateRequest', null, global);
 goog.exportSymbol('proto.garageopener.ChangeDoorStateRequest.Action', null, global);
 goog.exportSymbol('proto.garageopener.ChangeDoorStateResponse', null, global);
 goog.exportSymbol('proto.garageopener.DoorState', null, global);
+goog.exportSymbol('proto.garageopener.DoorState.State', null, global);
 goog.exportSymbol('proto.garageopener.Empty', null, global);
 
 /**
@@ -501,7 +501,7 @@ proto.garageopener.DoorState.prototype.toObject = function(opt_includeInstance) 
  */
 proto.garageopener.DoorState.toObject = function(includeInstance, msg) {
   var f, obj = {
-    state: jspb.Message.getFieldWithDefault(msg, 1, false)
+    state: jspb.Message.getFieldWithDefault(msg, 1, 0)
   };
 
   if (includeInstance) {
@@ -539,7 +539,7 @@ proto.garageopener.DoorState.deserializeBinaryFromReader = function(msg, reader)
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
+      var value = /** @type {!proto.garageopener.DoorState.State} */ (reader.readEnum());
       msg.setState(value);
       break;
     default:
@@ -572,8 +572,8 @@ proto.garageopener.DoorState.prototype.serializeBinary = function() {
 proto.garageopener.DoorState.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getState();
-  if (f) {
-    writer.writeBool(
+  if (f !== 0.0) {
+    writer.writeEnum(
       1,
       f
     );
@@ -582,19 +582,26 @@ proto.garageopener.DoorState.serializeBinaryToWriter = function(message, writer)
 
 
 /**
- * optional bool state = 1;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
+ * @enum {number}
+ */
+proto.garageopener.DoorState.State = {
+  OPENED: 0,
+  CLOSED: 1,
+  UNKNOWN: 2
+};
+
+/**
+ * optional State state = 1;
+ * @return {!proto.garageopener.DoorState.State}
  */
 proto.garageopener.DoorState.prototype.getState = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
+  return /** @type {!proto.garageopener.DoorState.State} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
-/** @param {boolean} value */
+/** @param {!proto.garageopener.DoorState.State} value */
 proto.garageopener.DoorState.prototype.setState = function(value) {
-  jspb.Message.setProto3BooleanField(this, 1, value);
+  jspb.Message.setProto3EnumField(this, 1, value);
 };
 
 

@@ -5,7 +5,7 @@ WORKAPP_DIR=/root/app
 current_dir=$(pwd)
 server_dir=${current_dir}/server
 
-RPI_IP=192.168.1.20
+RPI_IP=192.168.1.22
 RPI_USER=pi
 
 cmd=$1
