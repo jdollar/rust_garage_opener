@@ -60,3 +60,10 @@ protoc web plugin: https://github.com/grpc/grpc-web/releases
 
 Making changes to proto files need to have eslint disabled for the new pb files. See this issue: https://github.com/grpc/grpc-web/issues/447
 Accomplishing this by extending eslint and ignoring *_pb.js files as per issue recommendation
+
+
+
+
+Call outs
+
+Door Status Call stream timeout + no reset + deadline

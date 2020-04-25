@@ -4,6 +4,7 @@ use serde::{Serialize, Deserialize};
 use tonic::transport::Server;
 use tonic::{Request, Response, Status, Code};
 use tokio::sync::mpsc;
+use tokio::time::delay_for;
 use gpio_cdev::{Chip,LineRequestFlags,LineHandle};
 use std::result::Result;
 use std::thread::sleep;
@@ -99,7 +100,7 @@ impl GarageOpener for GarageOpenerService {
                     x => {
                         dbg!(&x);
                         dbg!(x.unwrap());
-                        sleep(Duration::from_millis(1000));
+                        delay_for(Duration::from_millis(1000)).await;
                     }
                 };
                 dbg!("After Match");

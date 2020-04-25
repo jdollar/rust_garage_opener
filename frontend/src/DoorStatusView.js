@@ -1,34 +1,47 @@
-import React, { useState } from 'react';
-import { Grid } from '@material-ui/core';
-import { House, Check, Clear, HelpOutline } from '@material-ui/icons';
+import React, { useState, useEffect } from 'react';
+import { Grid, makeStyles } from '@material-ui/core';
+import { Check, Clear, HelpOutline } from '@material-ui/icons';
 import { Empty, DoorState } from './pb/garage_opener_pb';
-import { GarageOpenerContext } from './GarageOpenerContext';
+import { withGarageOpenerContext } from './withGarageOpenerContext';
 
-// proto.garageopener.DoorState.State = {
-//   OPENED: 0,
-//   CLOSED: 1,
-//   UNKNOWN: 2
-// };
-const configureStream = (params) => {
-  const {
-    garageOpenerService,
-    streamOpts: { stream, setStream },
-    setDoorStatus,
-  } = params
+const useStatusDisplayStyles = makeStyles(() => ({
+  root: {
+    width: '100%',
+  },
+  icon: {
+    fontSize: '20em',
+  },
+}));
 
-  if (stream) {
-    return stream;
-  }
-  
-  console.log('generating new stream');
+function StatusDisplay(props) {
+  const { doorStatus } = props;
+  const classes = useStatusDisplayStyles();
+
+  const StateIcon = {
+    [DoorState.State.OPENED]: Clear,
+    [DoorState.State.CLOSED]: Check,
+  }[doorStatus] || HelpOutline;
+
+  return (
+    <Grid
+      container
+      className={classes.root}
+    >
+      <Grid item>
+        <StateIcon
+          classes={{ root: classes.icon }}
+        />
+      </Grid>
+    </Grid>
+  );
+}
+
+function setupStream(params) {
+  const { garageOpenerService, setStream } = params;
   const deadline = new Date();
   deadline.setSeconds(deadline.getSeconds() + 100000);
   const newStream = garageOpenerService.getGarageDoorState(new Empty(), { deadline: deadline.getTime() });
 
-  newStream.on('data', function(response) {
-    console.log('state: ', response.getState());
-    setDoorStatus(response.getState());
-  });
   newStream.on('status', function(status) {
     console.log(status.code);
     console.log(status.details);
@@ -36,6 +49,11 @@ const configureStream = (params) => {
   });
   newStream.on('error', function(err) {
     console.error(err);
+
+    // Wait a second and try again
+    setTimeout(() => {
+      setupStream(params);
+    }, 1000);
   })
   newStream.on('end', function(end) {
     // stream end signal
@@ -45,44 +63,33 @@ const configureStream = (params) => {
   setStream(newStream);
 }
 
-function StatusDisplay(props) {
-  const { doorStatus } = props;
-
-  const StateIcon = {
-    [DoorState.State.OPENED]: Clear,
-    [DoorState.State.CLOSED]: Check,
-  }[doorStatus] || HelpOutline;
-
-  return (
-    <Grid container>
-      <Grid item>
-        <House />
-      </Grid>
-      <Grid item>
-        <StateIcon />
-      </Grid>
-    </Grid>
-  );
-}
-
 function Content(props) {
-  console.log('rendering door status', props);
   const { garageOpenerContext: { garageOpenerService } } = props;
 
   const [ stream, setStream ] = useState(null);
-  const [ doorStatus, setDoorStatus ] = useState(null);
-  
-  configureStream({ garageOpenerService, streamOpts: { stream, setStream }, setDoorStatus });
+  const [ doorStatus, setDoorStatus ] = useState(DoorState.State.UNKOWN);
+
+  // Configure stream to update door status when we detect a change
+  useEffect(() => {
+    if (stream) {
+      stream.on('data', function(response) {
+        if (doorStatus !== response.getState()) {
+          setDoorStatus(response.getState());
+        }
+      })
+    }
+  }, [stream, doorStatus])
+
+  // Create new stream on initial load
+  useEffect(() => {
+    setupStream({ garageOpenerService, setStream });
+  }, [garageOpenerService]);
 
   return (
-    <StatusDisplay doorStatus={doorStatus} />
+    <StatusDisplay
+      doorStatus={doorStatus}
+    />
   );
 }
 
-export function DoorStatusView() {
-  return (
-    <GarageOpenerContext.Consumer>
-      { garageOpenerContext => <Content garageOpenerContext={garageOpenerContext} /> }
-    </GarageOpenerContext.Consumer>
-  );
-}
+export const DoorStatusView = withGarageOpenerContext(Content);
