@@ -34,6 +34,12 @@ wget https://raw.githubusercontent.com/improbable-eng/grpc-web/master/misc/local
 ./grpcwebproxy-v0.12.0-arm7 --backend_addr=localhost:10000 --run_tls_server=false --allow_all_origins --server_http_max_write_timeout 900s --server_http_max_read_timeout 900
 ```
 
+Wiring:
+![Wiring Diagram For Project](docs/images/wiring_diagram.png)
+
+
+Contributing:
+
 To build:
 
 ```
