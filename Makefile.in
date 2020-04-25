@@ -1,0 +1,22 @@
+CWD := $(shell pwd)
+SERVICENAME := garage_opener
+TARDIR := $(SERVICENAME)-@VERSION@
+
+devbuild:
+	./local_run.sh build_rust
+
+build:
+	./local_run.sh build_rust_release
+
+dist:
+	@rm -fr ./dist
+	mkdir -p ./dist/$(TARDIR)
+	rsync -r --exclude .git/ --exclude dist/ --exclude target/ $(CWD)/server/ ./dist/$(TARDIR)
+	cd ./dist/; tar -zcf $(TARDIR).tar.gz $(TARDIR);
+
+deb: build
+	@rm -fr ./dist
+	mkdir -p ./dist/deb/$(TARDIR)/usr/local/bin
+	cp ./server/target/armv7-unknown-linux-gnueabihf/release/garageopener-server ./dist/deb/$(TARDIR)/usr/local/bin
+	cp -r ./server/DEBIAN ./dist/deb/$(TARDIR)
+	dpkg-deb --build ./dist/deb/$(TARDIR)

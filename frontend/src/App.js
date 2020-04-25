@@ -13,7 +13,7 @@ import { GarageOpenerClient } from './pb/garage_opener_grpc_web_pb';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: '1em',
+    marginTop: '1em',
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -114,6 +114,7 @@ function App() {
                 direction="column"
                 container
                 alignItems="center"
+                spacing={2}
               >
                 <Grid item>
                   <DoorStatusView />

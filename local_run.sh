@@ -21,6 +21,13 @@ case $cmd in
       ${DOCKER_TAG} \
       build 
     ;;
+  build_rust_release)
+    docker run \
+      --mount type=bind,source=${current_dir}/proto,target=${WORKAPP_DIR}/proto \
+      --mount type=bind,source=${server_dir},target=${WORKAPP_DIR}/server \
+      ${DOCKER_TAG} \
+      build --release
+    ;;
   clean_rust)
     docker run \
       --mount type=bind,source=${current_dir}/proto,target=${WORKAPP_DIR}/proto \
@@ -30,6 +37,9 @@ case $cmd in
     ;;
   ship_it)
     rsync -avzhe ssh --progress ${server_dir}/target/armv7-unknown-linux-gnueabihf/debug/garageopener-{server,client} ${RPI_USER}@${RPI_IP}:/home/${RPI_USER}
+    ;;
+  ship_it_deb)
+    rsync -avzhe ssh --progress ${current_dir}/dist/deb/*.deb ${RPI_USER}@${RPI_IP}:/home/${RPI_USER}
     ;;
   *)
     echo "Invalid command passed. Allowed commands: docker_build|build_rust|clean_rust|ship_it"

@@ -7,6 +7,9 @@ case ${cmd} in
   build)
     cargo $@ --target=armv7-unknown-linux-gnueabihf
     ;;
+  build_release)
+    cargo $@ --target=armv7-unknown-linux-gnueabihf --release
+    ;;
   clean)
     cargo $@ --target=armv7-unknown-linux-gnueabihf
     ;;

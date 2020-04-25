@@ -1,0 +1,7 @@
+Package: garageopener-server
+Version: 1.0.0
+Section: base
+Priority: optional
+Architecture: armhf
+Maintainer: Joel Dollarhide <dollarhidejoel@gmail.com>
+Description: Server that will function as a iot garage door opener

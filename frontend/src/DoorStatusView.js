@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { Check, Clear, HelpOutline } from '@material-ui/icons';
 import { Empty, DoorState } from './pb/garage_opener_pb';
 import { withGarageOpenerContext } from './withGarageOpenerContext';
@@ -17,20 +17,36 @@ function StatusDisplay(props) {
   const { doorStatus } = props;
   const classes = useStatusDisplayStyles();
 
-  const StateIcon = {
-    [DoorState.State.OPENED]: Clear,
-    [DoorState.State.CLOSED]: Check,
-  }[doorStatus] || HelpOutline;
+  const doorStateInfo = {
+    [DoorState.State.OPENED]: {
+      icon: Clear,
+      text: 'Closed',
+    },
+    [DoorState.State.CLOSED]: {
+      icon: Check,
+      text: 'Open',
+    },
+  }[doorStatus] || {
+    icon: HelpOutline,
+    text: 'Unknown',
+  };
 
   return (
     <Grid
       container
       className={classes.root}
+      direction="column"
+      alignItems="center"
     >
       <Grid item>
-        <StateIcon
+        <doorStateInfo.icon
           classes={{ root: classes.icon }}
         />
+      </Grid>
+      <Grid item>
+        <Typography variant="h2" component="h2">
+          { doorStateInfo.text }
+        </Typography>
       </Grid>
     </Grid>
   );

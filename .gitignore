@@ -3,3 +3,10 @@ server/target/**/*
 
 frontend/build/
 frontend/node_modules
+
+*.log
+Makefile
+configure
+*.status
+*.cache
+dist/
