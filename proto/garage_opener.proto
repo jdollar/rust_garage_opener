@@ -9,12 +9,7 @@ package garageopener;
 message Empty {}
 
 message ChangeDoorStateRequest {
-  enum Action {
-    OPEN = 0;
-    CLOSE = 1;
-  };
   string password = 1;
-  Action action = 2;
 }
 
 message ChangeDoorStateResponse {

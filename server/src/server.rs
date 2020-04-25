@@ -80,11 +80,8 @@ impl GarageOpener for GarageOpenerService {
         let (mut tx, rx) = mpsc::channel(1);
         let open_switch = self.open_switch_handle.clone();
 
-        dbg!("Before Spawn");
-
         tokio::spawn(async move {
             loop {
-                dbg!("Inside Loop");
                 // Need to figure out how to match against their result type
                 let is_open = open_switch.get_value().unwrap();
 
@@ -94,16 +91,12 @@ impl GarageOpener for GarageOpenerService {
                     State::Unknown
                 };
 
-                dbg!("Before send Match");
                 match tx.send(Ok(DoorState { state: state as i32 })).await {
                     Err(_) => break,
-                    x => {
-                        dbg!(&x);
-                        dbg!(x.unwrap());
+                    _ => {
                         delay_for(Duration::from_millis(1000)).await;
                     }
                 };
-                dbg!("After Match");
             }
         });
 

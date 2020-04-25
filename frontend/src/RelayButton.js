@@ -16,7 +16,6 @@ function callDoorChangeEndpoint({ snackbarContext, garageOpenerContext, password
 
     const changeDoorStateRequest = new ChangeDoorStateRequest();
     changeDoorStateRequest.setPassword(password);
-    changeDoorStateRequest.setAction(0);
 
     return new Promise((resolve, reject) => {
       garageOpenerService.changeDoorState(changeDoorStateRequest, null, (err, res) => {

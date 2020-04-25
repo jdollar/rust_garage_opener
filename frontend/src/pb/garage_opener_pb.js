@@ -12,7 +12,6 @@ var goog = jspb;
 var global = Function('return this')();
 
 goog.exportSymbol('proto.garageopener.ChangeDoorStateRequest', null, global);
-goog.exportSymbol('proto.garageopener.ChangeDoorStateRequest.Action', null, global);
 goog.exportSymbol('proto.garageopener.ChangeDoorStateResponse', null, global);
 goog.exportSymbol('proto.garageopener.DoorState', null, global);
 goog.exportSymbol('proto.garageopener.DoorState.State', null, global);
@@ -180,8 +179,7 @@ proto.garageopener.ChangeDoorStateRequest.prototype.toObject = function(opt_incl
  */
 proto.garageopener.ChangeDoorStateRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    password: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    action: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    password: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -222,10 +220,6 @@ proto.garageopener.ChangeDoorStateRequest.deserializeBinaryFromReader = function
       var value = /** @type {string} */ (reader.readString());
       msg.setPassword(value);
       break;
-    case 2:
-      var value = /** @type {!proto.garageopener.ChangeDoorStateRequest.Action} */ (reader.readEnum());
-      msg.setAction(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -262,23 +256,8 @@ proto.garageopener.ChangeDoorStateRequest.serializeBinaryToWriter = function(mes
       f
     );
   }
-  f = message.getAction();
-  if (f !== 0.0) {
-    writer.writeEnum(
-      2,
-      f
-    );
-  }
 };
 
-
-/**
- * @enum {number}
- */
-proto.garageopener.ChangeDoorStateRequest.Action = {
-  OPEN: 0,
-  CLOSE: 1
-};
 
 /**
  * optional string password = 1;
@@ -292,21 +271,6 @@ proto.garageopener.ChangeDoorStateRequest.prototype.getPassword = function() {
 /** @param {string} value */
 proto.garageopener.ChangeDoorStateRequest.prototype.setPassword = function(value) {
   jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional Action action = 2;
- * @return {!proto.garageopener.ChangeDoorStateRequest.Action}
- */
-proto.garageopener.ChangeDoorStateRequest.prototype.getAction = function() {
-  return /** @type {!proto.garageopener.ChangeDoorStateRequest.Action} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/** @param {!proto.garageopener.ChangeDoorStateRequest.Action} value */
-proto.garageopener.ChangeDoorStateRequest.prototype.setAction = function(value) {
-  jspb.Message.setProto3EnumField(this, 2, value);
 };
 
 

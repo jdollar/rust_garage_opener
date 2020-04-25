@@ -2,7 +2,6 @@ use tonic::Request;
 
 use garageopener::garage_opener_client::GarageOpenerClient;
 use garageopener::{Empty, ChangeDoorStateRequest};
-use garageopener::change_door_state_request::Action;
 
 pub mod garageopener {
   tonic::include_proto!("garageopener");
@@ -30,7 +29,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let response2 = client
     .change_door_state(Request::new(ChangeDoorStateRequest {
       password: "1224".into(),
-      action: Action::Open as i32
     }))
     .await;
 
@@ -39,7 +37,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let response3 = client
     .change_door_state(Request::new(ChangeDoorStateRequest {
       password: "1234".into(),
-      action: Action::Open as i32
     }))
     .await?;
 
