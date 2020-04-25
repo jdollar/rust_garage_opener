@@ -36,7 +36,8 @@ struct GarageOpenerConfig {
     port: u16,
     password: String,
     relay: RelayConfig,
-    open_switch: SwitchConfig
+    open_switch: SwitchConfig,
+    close_switch: SwitchConfig
 }
 
 impl ::std::default::Default for GarageOpenerConfig {
@@ -56,6 +57,12 @@ impl ::std::default::Default for GarageOpenerConfig {
                     chip: "/dev/gpiochip0".into(),
                     line: 27
                 }
+            },
+            close_switch: SwitchConfig {
+                gpio: GpioConfig {
+                    chip: "/dev/gpiochip0".into(),
+                    line: 22
+                }
             }
         }
     }
@@ -69,7 +76,8 @@ pub mod garageopener {
 pub struct GarageOpenerService {
     cfg: Arc<GarageOpenerConfig>,
     relay_handle: Arc<LineHandle>,
-    open_switch_handle: Arc<LineHandle>
+    open_switch_handle: Arc<LineHandle>,
+    close_switch_handle: Arc<LineHandle>
 }
 
 #[tonic::async_trait]
@@ -79,14 +87,19 @@ impl GarageOpener for GarageOpenerService {
     async fn get_garage_door_state(&self, _request: Request<Empty>) -> Result<Response<Self::GetGarageDoorStateStream>, Status> {
         let (mut tx, rx) = mpsc::channel(1);
         let open_switch = self.open_switch_handle.clone();
+        let close_switch = self.close_switch_handle.clone();
 
         tokio::spawn(async move {
             loop {
                 // Need to figure out how to match against their result type
+                // so I don't have to unwrap
                 let is_open = open_switch.get_value().unwrap();
+                let is_closed = close_switch.get_value().unwrap();
 
                 let state = if is_open == 1 {
                     State::Opened
+                } else if is_closed == 1 {
+                    State::Closed
                 } else {
                     State::Unknown
                 };
@@ -135,6 +148,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Setup gpio
     let mut relay_chip = Chip::new(&cfg.relay.gpio.chip)?;
     let mut open_switch_chip = Chip::new(&cfg.open_switch.gpio.chip)?;
+    let mut close_switch_chip = Chip::new(&cfg.close_switch.gpio.chip)?;
 
     let relay_handle = relay_chip
         .get_line(cfg.relay.gpio.line)?
@@ -143,6 +157,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let open_switch_handle = open_switch_chip
         .get_line(cfg.open_switch.gpio.line)?
         .request(LineRequestFlags::INPUT, 0, "garage-open-switch")?;
+
+    let close_switch_handle = close_switch_chip
+        .get_line(cfg.close_switch.gpio.line)?
+        .request(LineRequestFlags::INPUT, 0, "garage-close-switch")?;
     
     let addr = format!("[::1]:{}", cfg.port).parse().unwrap();
     
@@ -151,7 +169,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let garage_opener = GarageOpenerService {
         cfg: Arc::new(cfg),
         relay_handle: Arc::new(relay_handle),
-        open_switch_handle: Arc::new(open_switch_handle)
+        open_switch_handle: Arc::new(open_switch_handle),
+        close_switch_handle: Arc::new(close_switch_handle)
     };
     
     let svc = GarageOpenerServer::new(garage_opener);

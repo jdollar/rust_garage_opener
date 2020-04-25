@@ -67,3 +67,7 @@ Accomplishing this by extending eslint and ignoring *_pb.js files as per issue r
 Call outs
 
 Door Status Call stream timeout + no reset + deadline
+
+Roadmap:
+
+More user friendly setup

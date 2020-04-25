@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Snackbar } from '@material-ui/core';
+import { AppBar, Grid, Snackbar, Toolbar, IconButton } from '@material-ui/core';
+import { Menu } from '@material-ui/icons';
 import { Alert as MuiAlert } from '@material-ui/lab';
 import { DoorStatusView } from './DoorStatusView';
 import { OpenCloseForm } from './OpenCloseForm';
 import { SnackbarContext } from './withSnackbar';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
     margin: '1em',
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
   },
 }));
 
@@ -40,6 +44,13 @@ function App() {
   return (
     <React.Fragment>
       <SnackbarContext.Provider value={snackbarProviderState}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton edge="start" className={classes.menuButton} color="inherit">
+              <Menu />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
         <Grid
           className={classes.root}
           direction="column"
@@ -54,7 +65,13 @@ function App() {
           </Grid>
         </Grid>
       </SnackbarContext.Provider>
-      <Snackbar open={snackbarOpts.open} autoHideDuration={6000} onClose={handleSnackbarClose(setSnackbarOpts)}>
+
+      <Snackbar
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        open={snackbarOpts.open}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose(setSnackbarOpts)}
+      >
         <Alert onClose={handleSnackbarClose(setSnackbarOpts)} severity={snackbarOpts.severity || 'info'}>
           { snackbarOpts.message }
         </Alert>
