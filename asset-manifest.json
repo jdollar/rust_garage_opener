@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/rust_garage_opener/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/rust_garage_opener/static/js/main.9c8806e8.chunk.js",
-    "main.js.map": "/rust_garage_opener/static/js/main.9c8806e8.chunk.js.map",
+    "main.js": "/rust_garage_opener/static/js/main.26408e4c.chunk.js",
+    "main.js.map": "/rust_garage_opener/static/js/main.26408e4c.chunk.js.map",
     "runtime-main.js": "/rust_garage_opener/static/js/runtime-main.3034060d.js",
     "runtime-main.js.map": "/rust_garage_opener/static/js/runtime-main.3034060d.js.map",
     "static/js/2.244cb53f.chunk.js": "/rust_garage_opener/static/js/2.244cb53f.chunk.js",
     "static/js/2.244cb53f.chunk.js.map": "/rust_garage_opener/static/js/2.244cb53f.chunk.js.map",
     "index.html": "/rust_garage_opener/index.html",
-    "precache-manifest.88f9647fde0e8aaa83f5e0c19476d3ce.js": "/rust_garage_opener/precache-manifest.88f9647fde0e8aaa83f5e0c19476d3ce.js",
+    "precache-manifest.8e7d0fb8ac9f4894bf0f7d2f55d55090.js": "/rust_garage_opener/precache-manifest.8e7d0fb8ac9f4894bf0f7d2f55d55090.js",
     "service-worker.js": "/rust_garage_opener/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/rust_garage_opener/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.244cb53f.chunk.js.LICENSE.txt": "/rust_garage_opener/static/js/2.244cb53f.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.3034060d.js",
     "static/js/2.244cb53f.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.9c8806e8.chunk.js"
+    "static/js/main.26408e4c.chunk.js"
   ]
 }

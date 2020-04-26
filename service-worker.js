@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/rust_garage_opener/precache-manifest.88f9647fde0e8aaa83f5e0c19476d3ce.js"
+  "/rust_garage_opener/precache-manifest.8e7d0fb8ac9f4894bf0f7d2f55d55090.js"
 );
 
 self.addEventListener('message', (event) => {
