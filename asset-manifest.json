@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/garage-opener/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/garage-opener/static/js/main.d449c09f.chunk.js",
-    "main.js.map": "/garage-opener/static/js/main.d449c09f.chunk.js.map",
-    "runtime-main.js": "/garage-opener/static/js/runtime-main.bb321903.js",
-    "runtime-main.js.map": "/garage-opener/static/js/runtime-main.bb321903.js.map",
-    "static/js/2.244cb53f.chunk.js": "/garage-opener/static/js/2.244cb53f.chunk.js",
-    "static/js/2.244cb53f.chunk.js.map": "/garage-opener/static/js/2.244cb53f.chunk.js.map",
-    "index.html": "/garage-opener/index.html",
-    "precache-manifest.96faa2726eb822f205a68eb09c7b85c7.js": "/garage-opener/precache-manifest.96faa2726eb822f205a68eb09c7b85c7.js",
-    "service-worker.js": "/garage-opener/service-worker.js",
-    "static/css/main.5ecd60fb.chunk.css.map": "/garage-opener/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.244cb53f.chunk.js.LICENSE.txt": "/garage-opener/static/js/2.244cb53f.chunk.js.LICENSE.txt"
+    "main.css": "/rust_garage_opener/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/rust_garage_opener/static/js/main.9c8806e8.chunk.js",
+    "main.js.map": "/rust_garage_opener/static/js/main.9c8806e8.chunk.js.map",
+    "runtime-main.js": "/rust_garage_opener/static/js/runtime-main.3034060d.js",
+    "runtime-main.js.map": "/rust_garage_opener/static/js/runtime-main.3034060d.js.map",
+    "static/js/2.244cb53f.chunk.js": "/rust_garage_opener/static/js/2.244cb53f.chunk.js",
+    "static/js/2.244cb53f.chunk.js.map": "/rust_garage_opener/static/js/2.244cb53f.chunk.js.map",
+    "index.html": "/rust_garage_opener/index.html",
+    "precache-manifest.88f9647fde0e8aaa83f5e0c19476d3ce.js": "/rust_garage_opener/precache-manifest.88f9647fde0e8aaa83f5e0c19476d3ce.js",
+    "service-worker.js": "/rust_garage_opener/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/rust_garage_opener/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.244cb53f.chunk.js.LICENSE.txt": "/rust_garage_opener/static/js/2.244cb53f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.bb321903.js",
+    "static/js/runtime-main.3034060d.js",
     "static/js/2.244cb53f.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.d449c09f.chunk.js"
+    "static/js/main.9c8806e8.chunk.js"
   ]
 }
