@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "50d783f3162a1b3eaa4c661e22adf6da",
+    "revision": "817bac7ccbada7f9f3fdf605b2be8c07",
     "url": "/rust_garage_opener/index.html"
   },
   {
-    "revision": "e807286951c15c453795",
+    "revision": "5945885228bf9e46965e",
     "url": "/rust_garage_opener/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rust_garage_opener/static/js/2.244cb53f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e807286951c15c453795",
-    "url": "/rust_garage_opener/static/js/main.9c8806e8.chunk.js"
+    "revision": "5945885228bf9e46965e",
+    "url": "/rust_garage_opener/static/js/main.26408e4c.chunk.js"
   },
   {
     "revision": "5a21a56d04f31e5d675b",
