@@ -1,0 +1,9 @@
+[Unit]
+Description=Server that will allow opening/closing a garage door
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/garageopener-server
+
+[Install]
+WantedBy=multi-user.target

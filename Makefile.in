@@ -16,7 +16,8 @@ dist:
 
 deb: build
 	@rm -fr ./dist
-	mkdir -p ./dist/deb/$(TARDIR)/usr/local/bin
+	mkdir -p ./dist/deb/$(TARDIR)/{usr/local/bin,/etc/systemd/system}
 	cp ./server/target/armv7-unknown-linux-gnueabihf/release/garageopener-server ./dist/deb/$(TARDIR)/usr/local/bin
 	cp -r ./server/DEBIAN ./dist/deb/$(TARDIR)
+	cp ./server/garageopener-server.service ./dist/deb/$(TARDIR)/etc/systemd/system
 	dpkg-deb --build ./dist/deb/$(TARDIR)

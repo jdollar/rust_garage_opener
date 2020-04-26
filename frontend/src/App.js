@@ -42,7 +42,7 @@ function handleSetupValueUpdate({ setGarageOpenerIp, setGarageOpenerPort, setGar
     setGarageOpenerIp(ip);
     setGarageOpenerPort(port);
     setGarageOpenerContextState({
-      garageOpenerService: (ip && port) ? new GarageOpenerClient(`http://${ip}:${port}`) : undefined,
+      garageOpenerService: (ip && port) ? new GarageOpenerClient(`https://${ip}:${port}`) : undefined,
     });
   };
 }
@@ -62,7 +62,7 @@ function App() {
   // to a new object being created everytime
   const [snackbarProviderState] = useState(() => ({ setSnackbarOpts }));
   const [garageOpenerContextState, setGarageOpenerContextState] = useState(() => ({
-    garageOpenerService: garageOpenerIp && new GarageOpenerClient(`http://${garageOpenerIp}:${garageOpenerPort}`),
+    garageOpenerService: garageOpenerIp && new GarageOpenerClient(`https://${garageOpenerIp}:${garageOpenerPort}`),
   }));
 
   const handleMenuClick = (event) => {
